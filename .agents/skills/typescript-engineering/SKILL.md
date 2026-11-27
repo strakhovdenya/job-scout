@@ -66,11 +66,14 @@ See [engineering standards](../../../docs/engineering-standards.md). Use the foc
 
 ## Tests (Vitest)
 
-- Unit: `{apps,packages}/*/src/**/*.test.{ts,tsx}` (project `unit`). Integration:
+- Unit: `{apps,packages}/*/src/**/*.test.{ts,tsx}` and `scripts/**/*.test.ts` (project `unit`). Integration:
   `*.integration.test.ts` (project `integration`, Firestore Emulator, serial).
 - Deterministic: no network, no real AI, no wall clock (inject `Date`), no randomness without a
   seed. Use fakes (`fakeFetch` in `packages/firestore/src/emulator.test.ts`, `ScriptedLlm`).
 - Test behavior and contracts (schema accept/reject, fail-closed paths), not implementation.
+- Follow the [independent test workflow](../../../docs/development.md). Target approved public
+  contracts, distinguish missing exports from behavioral RED and keep supplementary tests
+  discoverable in separate files alongside the frozen baseline.
 
 ## Dependencies
 

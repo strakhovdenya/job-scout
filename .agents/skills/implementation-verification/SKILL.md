@@ -11,7 +11,7 @@ Never claim a check passed unless it ran in this session and you saw it pass.
 
 1. **Restate acceptance criteria** from the task in 2–6 bullets. Note anything ambiguous.
 2. **Inspect the change**: `git status` and `git diff` (plus `git diff --staged`). Confirm
-   every changed file is in scope; revert or call out unrelated edits.
+   every changed file is in scope. Preserve unrelated owner edits and exclude them from the commit.
 3. **Select checks** for the affected surfaces. Run prerequisites before their dependents and fix failures within approved scope. Record exact evidence against the approved criteria and revision.
 
 | When                                                      | Command                                                                                                                                       |
@@ -28,6 +28,8 @@ Never claim a check passed unless it ran in this session and you saw it pass.
 | worker changed                                            | `pnpm dev:infra` then `pnpm worker:run` (expect exit code 0)                                                                                  |
 
 `pnpm check` includes formatting, lint, architecture, skills, typecheck and unit tests. For issue changes also validate the canonical contract. Verify Worker images with `sh scripts/smoke-worker.sh` and report actual PR-head CI results when available. Stop background dev servers you start.
+
+For two-session work, follow [frozen baseline verification](../../../docs/test-baseline.md) before implementation and on the final commit. Record exact RED and final test commands, protected path comparison, supplementary tests and discovery review. Read the PR head back from GitHub and confirm it matches the verified commit. Record each applicable Actions job, status and run link for that head. Use the [implementation handoff](../../../docs/templates/implementation-engineer-handoff.md). For exceptions, record the reason and applicable checks.
 
 4. **Secret scan of the diff**:
    - no `.env`, `.env.*` (except `.env.example`), `*.tfvars`, `*.tfstate`, `*.pem`, `*.key`,
