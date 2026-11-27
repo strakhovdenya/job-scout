@@ -1,0 +1,22 @@
+{
+  "name": "@job-scout/worker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded JobScout background worker for Google Cloud Run Jobs.",
+  "type": "module",
+  "main": "./dist/main.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "node --conditions=@job-scout/source --env-file=../../config/local.env --env-file-if-exists=../../.env src/main.ts",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "clean": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@job-scout/core": "workspace:*",
+    "@job-scout/firestore": "workspace:*"
+  }
+}

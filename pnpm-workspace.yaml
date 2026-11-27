@@ -1,0 +1,18 @@
+packages:
+  - apps/*
+  - packages/*
+minimumReleaseAgeExclude:
+  - eslint-config-prettier@10.1.9
+
+# Dependency lifecycle scripts are denied unless explicitly reviewed and allowed.
+# The entries below are optional native accelerations or no-op/version-check scripts.
+allowBuilds:
+  '@google/genai': false
+  cpu-features: false
+  protobufjs: false
+  ssh2: false
+
+# @google/adk depends on @opentelemetry/api ^1.9.1, while its OpenTelemetry SDK packages
+# require <1.10.0. Keep a single compatible API version until upstream ranges align.
+overrides:
+  '@opentelemetry/api': ~1.9.1

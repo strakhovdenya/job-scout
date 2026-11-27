@@ -1,0 +1,221 @@
+[
+  {
+    "id": "syn-001",
+    "synthetic": true,
+    "title": "Senior Backend Engineer (TypeScript, Node.js)",
+    "companyName": "Nordlicht Software GmbH",
+    "companyCountry": "DE",
+    "locationText": "Remote (Germany)",
+    "description": "Nordlicht Software builds logistics planning tools. You will design Node.js services in TypeScript with NestJS and PostgreSQL. Fully remote within Germany. Our working language is English; German is a plus. Apply via our careers page and include your CV.",
+    "sourceUrl": "https://jobs.nordlicht.example/postings/backend-ts",
+    "applicationUrl": "https://careers.nordlicht.example/apply/backend-ts",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-02T09:00:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "worth_exploring",
+      "remoteFromGermany": "allowed",
+      "statedLanguages": [
+        { "language": "English", "requirement": "required" },
+        { "language": "German", "requirement": "preferred" }
+      ],
+      "notes": "Relevant stack, German employer, remote explicitly within Germany, direct application URL."
+    }
+  },
+  {
+    "id": "syn-002",
+    "synthetic": true,
+    "title": "Senior Backend Engineer - TypeScript / Node.js",
+    "companyName": "Nordlicht Software GmbH",
+    "companyCountry": "DE",
+    "locationText": "Germany, Remote",
+    "description": "Nordlicht Software builds logistics planning tools.  You will design Node.js services in TypeScript with NestJS and PostgreSQL. Fully remote within Germany. Our working language is English; German is a plus. Apply via our careers page and include your CV.",
+    "sourceUrl": "https://aggregator.example/listing/88412",
+    "applicationUrl": "https://careers.nordlicht.example/apply/backend-ts",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-03T14:30:00.000Z",
+    "duplicateOf": "syn-001",
+    "expected": {
+      "outcome": "worth_exploring",
+      "remoteFromGermany": "allowed",
+      "statedLanguages": [
+        { "language": "English", "requirement": "required" },
+        { "language": "German", "requirement": "preferred" }
+      ],
+      "notes": "Duplicate of syn-001 republished by an aggregator with a different title and whitespace."
+    }
+  },
+  {
+    "id": "syn-003",
+    "synthetic": true,
+    "title": "Full-Stack Engineer (React, Next.js, Node.js)",
+    "companyName": "Karpaty Labs",
+    "companyCountry": "UA",
+    "locationText": "Remote",
+    "description": "Karpaty Labs is a Ukrainian product company hiring contractors worldwide, including Germany. Stack: React, Next.js, Node.js, PostgreSQL. English B2 or higher is required. Send your CV to jobs@karpaty-labs.example with the subject 'Full-Stack'.",
+    "sourceUrl": "https://karpaty-labs.example/careers/full-stack",
+    "applicationUrl": null,
+    "applicationEmail": "jobs@karpaty-labs.example",
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-05T08:15:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "worth_exploring",
+      "remoteFromGermany": "allowed",
+      "statedLanguages": [{ "language": "English", "requirement": "required" }],
+      "notes": "Ukrainian employer hiring internationally with explicit Germany eligibility and an application email."
+    }
+  },
+  {
+    "id": "syn-004",
+    "synthetic": true,
+    "title": "Node.js Platform Engineer",
+    "companyName": "Prairie Data Inc.",
+    "companyCountry": "US",
+    "locationText": "Remote (US only)",
+    "description": "Remote position open to residents of the United States only. Candidates must be authorized to work in the US without sponsorship. Stack: Node.js, TypeScript, AWS.",
+    "sourceUrl": "https://prairie-data.example/jobs/platform-node",
+    "applicationUrl": "https://prairie-data.example/jobs/platform-node/apply",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-06T17:00:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "skip",
+      "remoteFromGermany": "not_allowed",
+      "statedLanguages": [],
+      "notes": "Relevant stack but remote work is explicitly restricted to the United States."
+    }
+  },
+  {
+    "id": "syn-005",
+    "synthetic": true,
+    "title": "TypeScript Developer (m/w/d)",
+    "companyName": "Elbwerk Digital GmbH",
+    "companyCountry": "DE",
+    "locationText": "Hamburg or remote within Germany",
+    "description": "Wir entwickeln Kundenportale mit React und Node.js. Remote work within Germany is possible. Fluent German (at least C1) is required because you will run workshops with our customers. Bewerbung bitte an bewerbung@elbwerk.example.",
+    "sourceUrl": "https://elbwerk.example/karriere/typescript-developer",
+    "applicationUrl": null,
+    "applicationEmail": "bewerbung@elbwerk.example",
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-07T10:00:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "maybe",
+      "remoteFromGermany": "allowed",
+      "statedLanguages": [{ "language": "German", "requirement": "required" }],
+      "notes": "Explicit German C1 requirement. Outcome depends on the configured language profile; without one it stays maybe."
+    }
+  },
+  {
+    "id": "syn-006",
+    "synthetic": true,
+    "title": "Backend Developer Node.js",
+    "companyName": "Rheinblick Systems GmbH",
+    "companyCountry": "DE",
+    "locationText": "Cologne, remote possible",
+    "description": "We are looking for a backend developer with Node.js experience. Remote work is possible. Excellent communication skills are expected; our team mostly speaks German day to day.",
+    "sourceUrl": "https://rheinblick.example/jobs/backend-node",
+    "applicationUrl": "https://rheinblick.example/jobs/backend-node/apply",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-08T12:00:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "maybe",
+      "remoteFromGermany": "unknown",
+      "statedLanguages": [],
+      "notes": "Ambiguous language requirement (team mostly speaks German) and unspecified remote scope."
+    }
+  },
+  {
+    "id": "syn-007",
+    "synthetic": true,
+    "title": "Frontend Engineer (React, TypeScript)",
+    "companyName": "Lumen Grid B.V.",
+    "companyCountry": "NL",
+    "locationText": "Remote",
+    "description": "Build energy dashboards with React and TypeScript. This is a remote role. Questions about the company? Write to info@lumengrid.example. Applications are only accepted through our application form.",
+    "sourceUrl": "https://lumengrid.example/careers/frontend",
+    "applicationUrl": "https://lumengrid.example/careers/frontend/apply",
+    "applicationEmail": null,
+    "generalContactEmail": "info@lumengrid.example",
+    "publishedAt": "2026-11-09T09:30:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "maybe",
+      "remoteFromGermany": "unknown",
+      "statedLanguages": [],
+      "notes": "Remote without country scope. info@ is a general contact, not an application email."
+    }
+  },
+  {
+    "id": "syn-008",
+    "synthetic": true,
+    "title": "Senior iOS Engineer (Swift)",
+    "companyName": "Isarlab Mobile GmbH",
+    "companyCountry": "DE",
+    "locationText": "Munich (on-site)",
+    "description": "Native iOS development in Swift and SwiftUI. This role is on-site in Munich five days a week. No backend or web development is involved.",
+    "sourceUrl": "https://isarlab.example/jobs/ios-senior",
+    "applicationUrl": "https://isarlab.example/jobs/ios-senior/apply",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-10T07:45:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "skip",
+      "remoteFromGermany": "not_allowed",
+      "statedLanguages": [],
+      "notes": "Clear technical mismatch (native iOS only) and on-site only."
+    }
+  },
+  {
+    "id": "syn-009",
+    "synthetic": true,
+    "title": "Node.js Developer",
+    "companyName": "Dnipro Code",
+    "companyCountry": "UA",
+    "locationText": "Remote (Ukraine only)",
+    "description": "Remote position for candidates located in Ukraine only, employment under a Diia.City contract. Stack: Node.js, Express, MongoDB.",
+    "sourceUrl": "https://dnipro-code.example/vacancies/nodejs",
+    "applicationUrl": "https://dnipro-code.example/vacancies/nodejs/apply",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-11T11:00:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "skip",
+      "remoteFromGermany": "not_allowed",
+      "statedLanguages": [],
+      "notes": "Ukrainian employer with remote work explicitly restricted to Ukraine."
+    }
+  },
+  {
+    "id": "syn-010",
+    "synthetic": true,
+    "title": "Applied AI Engineer (TypeScript)",
+    "companyName": "Kiel Signal GmbH",
+    "companyCountry": "DE",
+    "locationText": "Remote within the EU",
+    "description": "Build LLM-powered features with TypeScript and Node.js. Experience with Python is nice to have but not required. Remote work from any EU country. Working language: English. Ukrainian is a plus. Apply at https://kiel-signal.example/apply/ai-engineer.",
+    "sourceUrl": "https://kiel-signal.example/jobs/ai-engineer",
+    "applicationUrl": "https://kiel-signal.example/apply/ai-engineer",
+    "applicationEmail": null,
+    "generalContactEmail": null,
+    "publishedAt": "2026-11-12T15:20:00.000Z",
+    "duplicateOf": null,
+    "expected": {
+      "outcome": "worth_exploring",
+      "remoteFromGermany": "allowed",
+      "statedLanguages": [
+        { "language": "English", "requirement": "required" },
+        { "language": "Ukrainian", "requirement": "preferred" }
+      ],
+      "notes": "Missing secondary technology (Python) must not cause a skip. EU-wide remote includes Germany."
+    }
+  }
+]

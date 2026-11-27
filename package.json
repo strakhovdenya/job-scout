@@ -1,0 +1,41 @@
+{
+  "name": "job-scout",
+  "version": "0.0.0",
+  "private": true,
+  "description": "AI-powered job discovery and screening platform built with TypeScript, Google ADK, Next.js, and Terraform-managed Google Cloud infrastructure.",
+  "type": "module",
+  "packageManager": "pnpm@12.23.0",
+  "engines": {
+    "node": ">=24.13.0 <25",
+    "pnpm": ">=12.23.0 <13"
+  },
+  "scripts": {
+    "dev": "pnpm run build:packages && pnpm --parallel --filter \"./packages/*\" --filter @job-scout/web run dev",
+    "dev:web": "pnpm run build:packages && pnpm --filter @job-scout/web run dev",
+    "dev:worker": "pnpm --filter @job-scout/worker run dev",
+    "build": "pnpm --recursive --workspace-concurrency=1 run build",
+    "build:packages": "pnpm --filter \"./packages/*\" run build",
+    "typecheck": "tsc -p tsconfig.json && pnpm --recursive run typecheck",
+    "lint": "eslint --max-warnings=0 .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run --project unit",
+    "test:watch": "vitest --project unit",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test",
+    "clean": "pnpm --recursive run clean",
+    "test:integration": "vitest run --project integration"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^24.19.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "eslint-config-prettier": "^10.1.9",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.2"
+  }
+}

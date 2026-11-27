@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/.next
+**/coverage
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+.git
+.github
+.agents
+.codex
+.vscode
+.idea
+docs
+infra
+**/*.log
+**/*.md

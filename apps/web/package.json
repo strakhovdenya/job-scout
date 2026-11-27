@@ -1,0 +1,30 @@
+{
+  "name": "@job-scout/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JobScout Next.js full-stack web application.",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=../../config/local.env --env-file-if-exists=../../.env ./node_modules/next/dist/bin/next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "next typegen && tsc -p tsconfig.json",
+    "clean": "node -e \"fs.rmSync('.next',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@job-scout/core": "workspace:*",
+    "@mui/material": "^9.6.0",
+    "@mui/material-nextjs": "^9.6.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0"
+  }
+}
