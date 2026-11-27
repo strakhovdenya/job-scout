@@ -1,0 +1,31 @@
+# Local development infrastructure only. Production resources are managed by Terraform.
+name: job-scout
+
+services:
+  firestore-emulator:
+    build:
+      context: infra/local/firestore-emulator
+    image: job-scout-firestore-emulator:local
+    environment:
+      GOOGLE_CLOUD_PROJECT: demo-job-scout
+      EMULATOR_PERSIST: ${EMULATOR_PERSIST:-false}
+    ports:
+      # Bound to loopback only; never exposed on the network.
+      - '127.0.0.1:8080:8080' # Firestore Emulator
+      - '127.0.0.1:4000:4000' # Emulator Suite UI
+      - '127.0.0.1:4400:4400' # Emulator hub (used by the UI)
+      - '127.0.0.1:4500:4500' # Emulator logging (used by the UI)
+      - '127.0.0.1:9150:9150' # Firestore websocket (used by the UI)
+    volumes:
+      - firestore-data:/home/node/emulator/data
+    healthcheck:
+      test: ['CMD', 'curl', '--fail', '--silent', 'http://127.0.0.1:8080/']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+    # Allows --export-on-exit to finish when EMULATOR_PERSIST=true.
+    stop_grace_period: 60s
+
+volumes:
+  firestore-data:

@@ -13,6 +13,11 @@
     "dev": "pnpm run build:packages && pnpm --parallel --filter \"./packages/*\" --filter @job-scout/web run dev",
     "dev:web": "pnpm run build:packages && pnpm --filter @job-scout/web run dev",
     "dev:worker": "pnpm --filter @job-scout/worker run dev",
+    "dev:infra": "docker compose up --detach --wait firestore-emulator",
+    "dev:stop": "docker compose down",
+    "db:seed": "pnpm --filter @job-scout/firestore run seed",
+    "db:reset": "pnpm --filter @job-scout/firestore run reset",
+    "worker:run": "pnpm --filter @job-scout/worker run start:local",
     "build": "pnpm --recursive --workspace-concurrency=1 run build",
     "build:packages": "pnpm --filter \"./packages/*\" run build",
     "typecheck": "tsc -p tsconfig.json && pnpm --recursive run typecheck",
@@ -22,9 +27,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run --project unit",
     "test:watch": "vitest --project unit",
+    "test:integration": "vitest run --project integration",
     "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test",
-    "clean": "pnpm --recursive run clean",
-    "test:integration": "vitest run --project integration"
+    "clean": "pnpm --recursive run clean"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

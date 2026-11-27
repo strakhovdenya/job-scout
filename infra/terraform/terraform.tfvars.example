@@ -1,0 +1,4 @@
+# Copy to terraform.tfvars (gitignored) and adjust. Never commit real tfvars files.
+project_id  = "your-gcp-project-id"
+region      = "europe-west3"
+environment = "production"
