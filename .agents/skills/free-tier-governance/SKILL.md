@@ -24,16 +24,18 @@ settings, retention, log volume, model choice, AI budgets. Pair with `gcp-terraf
 
 ## Cost drivers to account for
 
-| Area              | Driver                                                | Control                                                                 |
-| ----------------- | ----------------------------------------------------- | ----------------------------------------------------------------------- |
-| Cloud Run service | vCPU-seconds, GiB-seconds, requests                   | min instances 0, request-based billing, small memory, max instances cap |
-| Cloud Run Jobs    | task duration × CPU/memory, task count                | bounded workload, timeouts, few tasks, no retries storm                 |
-| Cloud Scheduler   | jobs per billing account                              | few schedules, sensible frequency                                       |
-| Firestore         | document reads/writes/deletes, storage, index entries | bounded queries, cursor pagination, skip unchanged writes, TTL          |
-| Artifact Registry | stored image size                                     | cleanup policies (keep last N, delete untagged)                         |
-| Cloud Logging     | ingested volume, retention                            | structured concise logs, no per-item debug in prod, exclusions          |
-| Network           | egress from Cloud Run                                 | no large downloads, region co-location                                  |
-| AI providers      | requests/min, requests/day, tokens/min/day            | per-run budgets, reservations, deferral                                 |
+| Area              | Driver                                                | Control                                                                    |
+| ----------------- | ----------------------------------------------------- | -------------------------------------------------------------------------- |
+| Cloud Run service | vCPU-seconds, GiB-seconds, requests                   | min instances 0, request-based billing, small memory, max instances cap    |
+| Cloud Run Jobs    | task duration × CPU/memory, task count                | bounded workload, timeouts, few tasks, no retries storm                    |
+| Cloud Scheduler   | jobs per billing account                              | few schedules, sensible frequency                                          |
+| Firestore         | document reads/writes/deletes, storage, index entries | bounded queries, cursor pagination, skip unchanged writes, bounded cleanup |
+| Artifact Registry | stored image size                                     | cleanup policies (keep last N, delete untagged)                            |
+| Cloud Logging     | ingested volume, retention                            | structured concise logs, no per-item debug in prod, exclusions             |
+| Network           | egress from Cloud Run                                 | no large downloads, region co-location                                     |
+| AI providers      | requests/min, requests/day, tokens/min/day            | per-run budgets, reservations, deferral                                    |
+
+Firestore TTL deletes are excluded from free usage and require billing. Compare retention needs with bounded cleanup before proposing a TTL policy. Verify provider quotas, data processing terms and availability in Germany/Europe before enabling live modes.
 
 ## Application-level budgets
 

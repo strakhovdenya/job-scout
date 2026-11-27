@@ -24,9 +24,11 @@ belongs in `packages/core` (see `typescript-engineering`).
 - `next.config.ts` — `output: 'standalone'`, `outputFileTracingRoot` and `turbopack.root` at the
   monorepo root, `poweredByHeader: false`.
 
+Use the installed Next.js documentation at `apps/web/node_modules/next/dist/docs` for version-matched guidance. Agent files are repository-owned; `agentRules: false` keeps dev startup from generating them.
+
 ## Workflow
 
-1. Check `docs/roadmap.md` (may not exist yet) — do not build planned features unasked.
+1. Check [roadmap](../../../docs/roadmap.md) — do not build planned features unasked.
 2. Default to Server Components. Add `'use client'` at the smallest leaf that needs state,
    effects, browser APIs or event handlers. Never import `src/server/*` from client code.
 3. Route Handlers: parse request input with Zod (`safeParse`, return 400 with a safe message),

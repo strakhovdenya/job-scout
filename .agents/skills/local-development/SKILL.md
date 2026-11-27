@@ -24,7 +24,7 @@ Local tools never point at production. Never disable or bypass safeguards (`load
 3. Variables already set in the process environment win over both.
 
 Scripts load the files via `node --env-file=config/local.env --env-file-if-exists=.env`.
-A notice that `.env` was not found is harmless.
+A notice that `.env` was not found is harmless. The local entry point rejects any non-local JOBSCOUT_ENV before application code runs. See the [local guide](../../../docs/local-development.md) for the variable contract and isolated image smoke test.
 
 Provider modes: `offline` (default; fixtures, mock AI, no external calls) → `live_sources`
 (permitted vacancy APIs) → `live_integration` (real AI; requires
@@ -53,7 +53,7 @@ mode.
 - Data is ephemeral by default. To keep it: `EMULATOR_PERSIST=true pnpm dev:infra`; data is
   imported on start and exported on graceful stop (`pnpm dev:stop`; compose allows 60 s). On
   Windows PowerShell set `$env:EMULATOR_PERSIST='true'` first.
-- Wipe the persisted volume: `docker compose down --volumes`.
+- Use the guarded `pnpm db:reset` for the intended loopback demo project and run `pnpm db:seed` to repopulate it.
 
 ## Troubleshooting
 

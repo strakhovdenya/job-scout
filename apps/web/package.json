@@ -5,7 +5,7 @@
   "description": "JobScout Next.js full-stack web application.",
   "type": "module",
   "scripts": {
-    "dev": "node --env-file=../../config/local.env --env-file-if-exists=../../.env ./node_modules/next/dist/bin/next dev",
+    "dev": "node --env-file=../../config/local.env --env-file-if-exists=../../.env --import ../../scripts/require-local.ts ../../scripts/run-local-web.ts",
     "build": "next build",
     "start": "next start",
     "typecheck": "next typegen && tsc -p tsconfig.json",

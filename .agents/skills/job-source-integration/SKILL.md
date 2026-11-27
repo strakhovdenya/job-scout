@@ -18,7 +18,7 @@ Verify from the official docs and terms, and record findings with source URL + d
 (e.g. in `docs/` or an ADR):
 
 1. Public accessibility and authentication requirements.
-2. Permission to fetch, store and display (terms, attribution, retention limits).
+2. Permission to collect, store, display, process with AI, retain and redistribute as applicable. Record terms, attribution and retention limits for each use.
 3. Full description available, or only a teaser?
 4. Coverage of German and Ukrainian employers; remote-geography information.
 5. Language information present? Application URL and/or application email present?
@@ -55,8 +55,7 @@ Board API, Ashby Job Posting API, Lever Postings API, Personio XML feeds, DOU RS
 - Stable ID = source + external ID → deterministic document ID (see `firestore`).
 - Content hash over normalized significant fields to detect changes; store description
   versions only when the hash changes.
-- Lifecycle: `new` → `changed` → `closed` (missing from a complete listing or explicitly
-  closed). Do not mark closed on a partial/failed fetch.
+- Lifecycle: preserve explicit closure evidence. Absence from a successful, authoritative, complete employer listing can inform closure only when its contract supports that inference. Absence from partial/failed fetches or changing aggregator windows is not closure evidence. Preserve unknown state and source provenance.
 - Cross-source dedup: same company + normalized title + near-identical description; see
   fixtures `syn-001`/`syn-002` (aggregator repost with different title/whitespace). Keep both
   records and link them; never merge away the source of the application link.

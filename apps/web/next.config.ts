@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
     root: workspaceRoot,
   },
   poweredByHeader: false,
+  // JobScout owns its repository instructions. Keep next dev from generating agent files.
+  agentRules: false,
   reactStrictMode: true,
 };
 

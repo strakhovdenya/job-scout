@@ -34,8 +34,7 @@ Routing, data loading and server boundaries → `nextjs-fullstack`.
 - No nonfunctional buttons or placeholder links. Planned features are labelled as planned or
   omitted.
 - Rapid review interactions (keyboard shortcuts, save/dismiss, next/previous) follow
-  `docs/ui-ux.md` (may not exist yet; if absent, keep interactions minimal and ask before
-  inventing a review flow).
+  [UI plan](../../../docs/ui-ux.md). Use `material-ui-styling` for theme and slot mechanics.
 
 ## Workflow
 

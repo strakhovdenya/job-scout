@@ -22,6 +22,7 @@ const positiveIntText = z
   .trim()
   .regex(/^[1-9]\d*$/, 'must be a positive integer')
   .transform(Number)
+  .refine(Number.isSafeInteger, 'must be a safe integer')
   .optional();
 
 const rawRuntimeEnvSchema = z.object({
@@ -63,6 +64,13 @@ export class RuntimeConfigError extends Error {
 }
 
 const HOST_PORT_PATTERN = /^[A-Za-z0-9.-]+:\d{1,5}$|^\[[0-9A-Fa-f:]+\]:\d{1,5}$/;
+
+function isEmulatorAddress(value: string): boolean {
+  if (!HOST_PORT_PATTERN.test(value) || !URL.canParse(`http://${value}`)) {
+    return false;
+  }
+  return Number(value.slice(value.lastIndexOf(':') + 1)) > 0;
+}
 
 /**
  * Parses and validates runtime configuration. Fails closed:
@@ -109,7 +117,7 @@ export function loadRuntimeConfig(
   } else {
     if (emulatorHost === undefined) {
       issues.push(`FIRESTORE_EMULATOR_HOST is required in the ${raw.JOBSCOUT_ENV} environment.`);
-    } else if (!HOST_PORT_PATTERN.test(emulatorHost)) {
+    } else if (!isEmulatorAddress(emulatorHost)) {
       issues.push('FIRESTORE_EMULATOR_HOST must have the form host:port.');
     }
     if (project !== undefined && !project.startsWith(DEMO_PROJECT_PREFIX)) {

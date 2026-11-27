@@ -9,9 +9,9 @@ try {
   const config = loadRuntimeConfig(process.env);
   const target = assertLocalEmulatorTarget(config);
   await probeEmulator(target);
+  const dataset = await loadSyntheticVacancyDataset(datasetUrl);
   const db = createFirestore(config);
-  const count = await seedSyntheticVacancies(db, await loadSyntheticVacancyDataset(datasetUrl));
-  await db.terminate();
+  const count = await seedSyntheticVacancies(db, dataset).finally(() => db.terminate());
   console.log(
     JSON.stringify({
       severity: 'INFO',

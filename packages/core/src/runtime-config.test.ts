@@ -83,4 +83,22 @@ describe('loadRuntimeConfig', () => {
       'live_integration requires JOBSCOUT_AI_MAX_REQUESTS_PER_RUN and JOBSCOUT_AI_MAX_TOKENS_PER_RUN.',
     ]);
   });
+
+  it.each(['9007199254740992', '9'.repeat(400), '0', '1.5'])(
+    'rejects an unsafe AI budget %s',
+    (budget) => {
+      expect(issuesOf({ ...production, JOBSCOUT_AI_MAX_REQUESTS_PER_RUN: budget })[0]).toContain(
+        'JOBSCOUT_AI_MAX_REQUESTS_PER_RUN',
+      );
+    },
+  );
+
+  it.each(['localhost:0', 'localhost:65536', '[::]:00000'])(
+    'rejects an invalid emulator address %s',
+    (address) => {
+      expect(issuesOf({ ...local, FIRESTORE_EMULATOR_HOST: address })[0]).toContain(
+        'FIRESTORE_EMULATOR_HOST',
+      );
+    },
+  );
 });

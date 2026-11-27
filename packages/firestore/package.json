@@ -18,8 +18,8 @@
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "typecheck": "tsc -p tsconfig.json",
-    "seed": "node --conditions=@job-scout/source --env-file=../../config/local.env --env-file-if-exists=../../.env src/cli/seed.ts",
-    "reset": "node --conditions=@job-scout/source --env-file=../../config/local.env --env-file-if-exists=../../.env src/cli/reset.ts",
+    "seed": "node --conditions=@job-scout/source --env-file=../../config/local.env --env-file-if-exists=../../.env --import ../../scripts/require-local.ts src/cli/seed.ts",
+    "reset": "node --conditions=@job-scout/source --env-file=../../config/local.env --env-file-if-exists=../../.env --import ../../scripts/require-local.ts src/cli/reset.ts",
     "clean": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
