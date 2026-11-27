@@ -14,6 +14,10 @@ Name affected modules, public contracts and ADRs. Explain material departures fr
 
 Map criteria to evidence on the PR head. Record exact commands, outcomes and failures or omitted checks with reasons.
 
+## Frozen test baseline and CI
+
+Link the Test Engineer handoff and approved Issue revision. Record the frozen SHA, protected path comparison result, supplementary tests, latest PR head SHA and actual GitHub Actions status. For a proportionate exception, record the reason and applicable checks.
+
 ## Risks, limitations and manual verification
 
 Record open risks and any owner-run checks, including prerequisites and expected results.

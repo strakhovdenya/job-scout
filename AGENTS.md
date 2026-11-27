@@ -30,11 +30,17 @@ See [vision](docs/product-vision.md), [roadmap](docs/roadmap.md) and
 ## Workflow
 
 For significant functionality follow discovery → PRD → owner approval → technical plan →
-owner approval → Issues → task branch → implementation → code review → verification → PR.
+owner approval → Issues → Test Engineer session → owner handoff review → fresh
+Implementation Engineer session → code review → verification → PR.
 Use the [development workflow](docs/development.md) and [issue contract](docs/issue-contract.md).
 Work on one approved scope at a time, confirm dependencies, and obtain approval for material
 expansion. For an explicitly authorized small fix or foundation change, apply a proportionate
-workflow. Keep docs and ADRs current and leave the next task for separate authorization.
+workflow. Functional and behavior-changing tasks require one Issue, two independent
+sessions, one branch and one final PR. Use `test-engineer` then `implementation-engineer`;
+the owner starts the second conversation. Preserve the committed frozen tests, fixtures
+and helpers; corrections require explicit owner approval and a recorded new baseline.
+Document exceptions under [development](docs/development.md). Keep docs and ADRs current
+and leave the next task for separate authorization.
 
 ## Runtime and cloud safety
 
@@ -61,6 +67,7 @@ Load only skills relevant to the task. See the [inventory](docs/skills-inventory
 | TypeScript, JavaScript, design    | `typescript-engineering`, `js-conventions`, `modern-javascript`, `js-gof`                                |
 | Collections and failure recovery  | `js-data-structures`, `data-structures`, `error-handling`                                                |
 | Discovery, requirements, planning | `epic-discovery`, `prd`, `plan`, `issues`, `task-lifecycle`                                              |
+| Independent task sessions         | `test-engineer`, `implementation-engineer`                                                               |
 | Architecture and review           | `adr`, `code-review`, `security-review`                                                                  |
 | Web, UI and browser               | `nextjs-fullstack`, `frontend-ui-ux`, `material-ui-styling`, `vercel-react-best-practices`, `playwright` |
 | Sources and storage               | `job-source-integration`, `firestore`                                                                    |

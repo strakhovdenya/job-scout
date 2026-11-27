@@ -23,7 +23,7 @@ Explain validation, error behavior, concurrency, cancellation, idempotency, IAM,
 - **Goal and affects:** <deliverable and files/modules>
 - **Dependencies:** <prerequisite and status>
 - **Tasks:** <ordered independently testable steps>
-- **Tests and documentation:** <evidence and changed references>
+- **Tests and documentation:** <public contracts and observable scenarios for independent tests, expected evidence and changed references>
 - **Done when:** <literal PRD criterion or stable ID plus observable evidence>
 
 Repeat per phase. Use vertical slices when they can exercise the full path. Explain any integration branch recommendation.
