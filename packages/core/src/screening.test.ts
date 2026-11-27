@@ -48,16 +48,37 @@ describe('screeningResultSchema', () => {
 });
 
 describe('enforceGroundedSkip', () => {
-  it('keeps a skip whose evidence is quoted from the source, ignoring case and whitespace', () => {
-    const result = skipResult(['our stack:   java 21, spring boot']);
+  it('keeps a skip whose evidence is quoted verbatim from the source', () => {
+    const result = skipResult(['Our stack: Java 21, Spring Boot']);
     expect(findUngroundedEvidence(result, source)).toEqual([]);
-    expect(enforceGroundedSkip(result, source).outcome).toBe('skip');
+    expect(enforceGroundedSkip(result, source)).toMatchObject({
+      outcome: 'skip',
+      reasons: result.reasons,
+      remoteFromGermany: 'unknown',
+    });
   });
 
   it('downgrades a skip to maybe when any evidence is not found in the source', () => {
     const result = skipResult(['Java 21', 'Only candidates located in Spain']);
     expect(findUngroundedEvidence(result, source)).toEqual(['Only candidates located in Spain']);
-    expect(enforceGroundedSkip(result, source).outcome).toBe('maybe');
+    const cleaned = enforceGroundedSkip(result, source);
+    expect(cleaned).toMatchObject({ outcome: 'maybe', reasons: [] });
+    expect(cleaned.summary).not.toBe(result.summary);
+  });
+
+  it('downgrades a skip with an additional reason lacking evidence', () => {
+    const grounded = skipResult(['Java 21']);
+    const result = {
+      ...grounded,
+      reasons: [
+        ...grounded.reasons,
+        { category: 'other' as const, summary: 'Unsupported', evidence: [] },
+      ],
+    };
+    expect(enforceGroundedSkip(result, source)).toMatchObject({
+      outcome: 'maybe',
+      reasons: grounded.reasons,
+    });
   });
 
   it('checks language requirement evidence as well', () => {
@@ -75,11 +96,36 @@ describe('enforceGroundedSkip', () => {
     expect(enforceGroundedSkip(result, source).outcome).toBe('maybe');
   });
 
-  it('never changes non-skip outcomes', () => {
+  it('removes unsupported claims from non-skip results', () => {
     const result: ScreeningResult = {
       ...skipResult(['invented quote']),
       outcome: 'worth_exploring',
+      statedLanguageRequirements: [
+        {
+          language: 'Dutch',
+          requirement: 'required',
+          statedLevel: 'C1',
+          evidence: 'Fluent German (C1)',
+        },
+        {
+          language: 'German',
+          requirement: 'required',
+          statedLevel: 'C2',
+          evidence: 'Fluent German (C1)',
+        },
+        {
+          language: 'German',
+          requirement: 'required',
+          statedLevel: 'C1',
+          evidence: 'Fluent German (C1) is required',
+        },
+      ],
     };
-    expect(enforceGroundedSkip(result, source)).toBe(result);
+    expect(enforceGroundedSkip(result, source)).toMatchObject({
+      outcome: 'worth_exploring',
+      reasons: [],
+      remoteFromGermany: 'unknown',
+      statedLanguageRequirements: [result.statedLanguageRequirements[2]],
+    });
   });
 });

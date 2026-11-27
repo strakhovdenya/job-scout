@@ -21,7 +21,7 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'node',
-          include: ['{apps,packages}/*/src/**/*.test.{ts,tsx}'],
+          include: ['{apps,packages}/*/src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts'],
           exclude: ['**/node_modules/**', '**/*.integration.test.ts'],
         },
       },
@@ -38,6 +38,7 @@ export default defineConfig({
           env: {
             JOBSCOUT_ENV: 'test',
             JOBSCOUT_PROVIDER_MODE: 'offline',
+            METADATA_SERVER_DETECTION: 'none',
             GOOGLE_CLOUD_PROJECT: 'demo-job-scout-test',
             FIRESTORE_EMULATOR_HOST: process.env.FIRESTORE_EMULATOR_HOST ?? '127.0.0.1:8080',
           },

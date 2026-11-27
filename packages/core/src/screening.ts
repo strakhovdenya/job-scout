@@ -41,8 +41,8 @@ export const screeningResultSchema = z
     reasons: z.array(screeningReasonSchema).max(10),
     remoteFromGermany: remoteFromGermanySchema,
     /**
-     * Only requirements the source states explicitly. An empty list means "none stated",
-     * which must not be read as "no language skills required".
+     * Model-extracted requirements with source quotes. An empty list means no verified
+     * extraction, which must not be read as "no language skills required".
      */
     statedLanguageRequirements: z.array(languageRequirementSchema).max(10),
   })
@@ -57,31 +57,52 @@ export const screeningResultSchema = z
   });
 export type ScreeningResult = z.infer<typeof screeningResultSchema>;
 
-function normalizeForComparison(text: string): string {
-  return text.replace(/\s+/g, ' ').trim().toLowerCase();
-}
-
-/** Returns evidence quotes that do not appear (whitespace- and case-insensitively) in the source. */
+/** Returns quotes that do not occur verbatim in the source. */
 export function findUngroundedEvidence(result: ScreeningResult, sourceText: string): string[] {
-  const source = normalizeForComparison(sourceText);
   const quotes = [
     ...result.reasons.flatMap((reason) => reason.evidence),
     ...result.statedLanguageRequirements.map((requirement) => requirement.evidence),
   ];
-  return quotes.filter((quote) => !source.includes(normalizeForComparison(quote)));
+  return quotes.filter((quote) => !sourceText.includes(quote));
 }
 
 /**
- * Conservative policy: a `skip` is only kept when every quoted piece of evidence is found
- * in the source text. Otherwise the vacancy is downgraded to `maybe`, because a false
- * negative (an interesting vacancy hidden from the user) is the costliest error.
+ * Filters unsupported claims for every outcome. A quote match proves textual presence only.
+ * The model's interpretation of the quote still needs human review.
  */
 export function enforceGroundedSkip(result: ScreeningResult, sourceText: string): ScreeningResult {
-  if (result.outcome !== 'skip') {
-    return result;
-  }
-  if (findUngroundedEvidence(result, sourceText).length === 0) {
-    return result;
-  }
-  return { ...result, outcome: 'maybe' };
+  const reasons = result.reasons.filter(
+    ({ evidence }) => evidence.length > 0 && evidence.every((quote) => sourceText.includes(quote)),
+  );
+  const statedLanguageRequirements = result.statedLanguageRequirements.filter(
+    ({ evidence, language, statedLevel }) =>
+      sourceText.includes(evidence) &&
+      mentions(evidence, language) &&
+      (statedLevel === null || mentions(evidence, statedLevel)),
+  );
+  // Remote eligibility has no dedicated evidence field in the bootstrap schema.
+  const lostSupport =
+    reasons.length !== result.reasons.length ||
+    statedLanguageRequirements.length !== result.statedLanguageRequirements.length ||
+    result.remoteFromGermany !== 'unknown';
+  const keepSkip =
+    reasons.length > 0 &&
+    reasons.length === result.reasons.length &&
+    statedLanguageRequirements.length === result.statedLanguageRequirements.length;
+  return {
+    ...result,
+    outcome: result.outcome === 'skip' && !keepSkip ? 'maybe' : result.outcome,
+    summary:
+      lostSupport || (result.outcome === 'skip' && !keepSkip)
+        ? 'Some model claims lack verifiable source evidence. Review the vacancy text.'
+        : result.summary,
+    reasons,
+    statedLanguageRequirements,
+    remoteFromGermany: 'unknown',
+  };
+}
+
+function mentions(quote: string, value: string): boolean {
+  const literal = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\p{L}\\p{N}])${literal}(?![\\p{L}\\p{N}])`, 'iu').test(quote);
 }

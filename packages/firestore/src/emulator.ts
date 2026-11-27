@@ -34,7 +34,10 @@ type FetchFn = (input: URL, init?: RequestInit) => Promise<Response>;
 
 /** Verifies the endpoint answers like the Firestore emulator (its root responds with "Ok"). */
 export async function probeEmulator(target: LocalEmulatorTarget, fetchFn: FetchFn = fetch) {
-  const response = await fetchFn(target.baseUrl, { signal: AbortSignal.timeout(5_000) });
+  const response = await fetchFn(target.baseUrl, {
+    redirect: 'error',
+    signal: AbortSignal.timeout(5_000),
+  });
   const body = (await response.text()).trim();
   if (!response.ok || body !== 'Ok') {
     throw new Error(`Endpoint ${target.baseUrl.href} did not respond like a Firestore emulator.`);
@@ -52,7 +55,11 @@ export async function resetEmulatorDatabase(
     `/emulator/v1/projects/${encodeURIComponent(target.projectId)}/databases/(default)/documents`,
     target.baseUrl,
   );
-  const response = await fetchFn(url, { method: 'DELETE', signal: AbortSignal.timeout(10_000) });
+  const response = await fetchFn(url, {
+    method: 'DELETE',
+    redirect: 'error',
+    signal: AbortSignal.timeout(10_000),
+  });
   if (!response.ok) {
     throw new Error(`Emulator reset failed with HTTP ${response.status}.`);
   }

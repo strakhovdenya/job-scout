@@ -14,11 +14,12 @@ const localConfig: RuntimeConfig = {
 interface RecordedRequest {
   readonly url: string;
   readonly method: string;
+  readonly redirect: RequestInit['redirect'];
 }
 
 function fakeFetch(rootBody: string, requests: RecordedRequest[]) {
   return (input: URL, init?: RequestInit): Promise<Response> => {
-    requests.push({ url: input.href, method: init?.method ?? 'GET' });
+    requests.push({ url: input.href, method: init?.method ?? 'GET', redirect: init?.redirect });
     return Promise.resolve(new Response(init?.method === 'DELETE' ? '{}' : rootBody));
   };
 }
@@ -42,14 +43,15 @@ describe('assertLocalEmulatorTarget', () => {
 });
 
 describe('resetEmulatorDatabase', () => {
-  it('probes the emulator and then calls the emulator-only delete endpoint', async () => {
+  it('probes and deletes only at emulator endpoints and refuses redirects on both requests', async () => {
     const requests: RecordedRequest[] = [];
     await resetEmulatorDatabase(localConfig, fakeFetch('Ok\n', requests));
     expect(requests).toEqual([
-      { url: 'http://127.0.0.1:8080/', method: 'GET' },
+      { url: 'http://127.0.0.1:8080/', method: 'GET', redirect: 'error' },
       {
         url: 'http://127.0.0.1:8080/emulator/v1/projects/demo-job-scout/databases/(default)/documents',
         method: 'DELETE',
+        redirect: 'error',
       },
     ]);
   });
