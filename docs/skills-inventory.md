@@ -1,13 +1,13 @@
 # JobScout skill inventory
 
-Thirty repository-local skills live under `.agents/skills/<name>/SKILL.md` with
+Thirty-two repository-local skills live under `.agents/skills/<name>/SKILL.md` with
 `name` and `description` front matter. [OpenAI's skill documentation](https://learn.chatgpt.com/docs/build-skills)
 describes repository discovery. Names identify the local skills, even when the environment
 also offers global skills in the selector. Static means covered by `pnpm lint:skills`
 for identity, inventory and selected local references. It does not certify skill execution
 or the quality of generated artifacts. The local Codex app-server
-(`0.171.0-alpha.13.2`) returned all 30 repository skills with no discovery errors
-from `skills/list`. That check did not run the imported workflows.
+(`0.171.0-alpha.13.2`) returned all 30 M1.1 repository skills with no discovery errors
+from `skills/list`. That check predates the M1.2 role skills and did not run the imported workflows.
 
 | Skill                         | Purpose                                | Trigger                                           | Origin and license                                                                    | Local adaptation                                                                             | Validation |
 | ----------------------------- | -------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------- |
@@ -36,6 +36,8 @@ from `skills/list`. That check did not run the imported workflows.
 | `issues`                      | Formal scoped tasks                    | Approved plan to reviewable issues                | Custom adaptation, [Dark Factory 0.1.3][df]; no upstream redistribution license found | Independently written for Codex with repository contracts                                    | Static     |
 | `adr`                         | Persistent architecture decisions      | Architecture design or change                     | Custom adaptation, [Dark Factory 0.1.3][df]; no upstream redistribution license found | Independently written for Codex with repository contracts                                    | Static     |
 | `task-lifecycle`              | One approved task and traceability     | Branch, implementation and PR handoff             | Custom adaptation, [Dark Factory 0.1.3][df]; no upstream redistribution license found | Independently written for Codex with repository contracts                                    | Static     |
+| `test-engineer`               | Independent tests and frozen baseline  | Session 1 for an approved functional Issue        | Custom, JobScout M1.2                                                                 | Test-only commit, RED evidence and owner handoff                                             | Static     |
+| `implementation-engineer`     | Implement against frozen tests         | Fresh session after owner handoff review          | Custom, JobScout M1.2                                                                 | Baseline comparison, final PR and owner review                                               | Static     |
 | `code-review`                 | Scoped read-only review                | Review correctness and regression risk            | Custom adaptation, [Dark Factory 0.1.3][df]; no upstream redistribution license found | Independently written for Codex with repository contracts                                    | Static     |
 | `material-ui-styling`         | MUI v9 scope, tokens and slots         | Styling and theme decisions                       | Imported [Material UI 1.0.0][mui], MIT                                                | Preserve guide and reference as local files                                                  | Static     |
 | `playwright`                  | Browser verification and snapshots     | Local UI evidence                                 | Imported [OpenAI Playwright][pw], Apache-2.0; Microsoft notice                        | Retain CLI/workflow references; remove globals and auto-downloading wrapper                  | Static     |
