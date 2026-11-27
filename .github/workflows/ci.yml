@@ -29,6 +29,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
       - run: pnpm lint
+      - run: pnpm lint:architecture
+      - run: pnpm lint:skills
+      - run: pnpm lint:issue docs/templates/github-issue.md
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
@@ -66,6 +69,11 @@ jobs:
         run: docker build --file apps/web/Dockerfile --tag job-scout-web:ci .
       - name: Build worker image
         run: docker build --file apps/worker/Dockerfile --tag job-scout-worker:ci .
+      - name: Build Firestore Emulator image
+        run: docker compose build firestore-emulator
+      - name: Smoke-test worker against an isolated Firestore Emulator
+        timeout-minutes: 3
+        run: sh scripts/smoke-worker.sh job-scout-worker:ci job-scout-firestore-emulator:local
       - name: Smoke-test web image
         run: |
           docker run --detach --name web -p 127.0.0.1:8080:8080 \

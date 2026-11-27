@@ -40,8 +40,7 @@ needs it, centralized in `COLLECTIONS`, with a Zod schema in `packages/core`.
   Documents are limited to 1 MiB — store large descriptions once, versions separately, and
   only hashes in hot documents.
 - Timestamps as Firestore `Timestamp`/ISO consistently; clocks injected.
-- Retention: TTL policies (on a dedicated expiry field) for executions, pending work and
-  accounting; declare TTL/indexes in Terraform later.
+- Retention: prefer bounded cleanup with a measured read/delete budget and durable checkpoints. Expire pending work only under an explicit recovery policy. Firestore TTL deletes have no free usage allowance and require billing. No production TTL policy exists. Verify current [pricing](https://firebase.google.com/docs/firestore/pricing) before proposing retention.
 
 ## Access patterns
 

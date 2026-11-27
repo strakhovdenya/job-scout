@@ -12,7 +12,7 @@ Never claim a check passed unless it ran in this session and you saw it pass.
 1. **Restate acceptance criteria** from the task in 2–6 bullets. Note anything ambiguous.
 2. **Inspect the change**: `git status` and `git diff` (plus `git diff --staged`). Confirm
    every changed file is in scope; revert or call out unrelated edits.
-3. **Run checks in order**, stopping to fix failures (then re-run from the failed step):
+3. **Select checks** for the affected surfaces. Run prerequisites before their dependents and fix failures within approved scope. Record exact evidence against the approved criteria and revision.
 
 | When                                                      | Command                                                                                                                                       |
 | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -27,7 +27,7 @@ Never claim a check passed unless it ran in this session and you saw it pass.
 | web changed                                               | `pnpm dev:web`, then `curl -fsS http://localhost:3000/api/health`; open changed pages                                                         |
 | worker changed                                            | `pnpm dev:infra` then `pnpm worker:run` (expect exit code 0)                                                                                  |
 
-`pnpm check` = format:check + lint + typecheck + test. Stop background dev servers you start.
+`pnpm check` includes formatting, lint, architecture, skills, typecheck and unit tests. For issue changes also validate the canonical contract. Verify Worker images with `sh scripts/smoke-worker.sh` and report actual PR-head CI results when available. Stop background dev servers you start.
 
 4. **Secret scan of the diff**:
    - no `.env`, `.env.*` (except `.env.example`), `*.tfvars`, `*.tfstate`, `*.pem`, `*.key`,
@@ -45,6 +45,8 @@ Never claim a check passed unless it ran in this session and you saw it pass.
    unless the user authorized them; no weakened safeguards.
 
 ## Report format
+
+Use the [canonical verification template](../../../docs/templates/implementation-verification.md) for substantial changes. Code review, owner approval, and manual acceptance are separate from automated checks.
 
 ```
 Acceptance criteria: <met / not met, one line each>

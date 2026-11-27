@@ -47,8 +47,7 @@ outputKey, tools, generateContentConfig, includeContents })`. `outputSchema` acc
    construction), `buildScreeningMessage` (input encoding), `screenVacancy` (bounded run),
    `parseScreeningResponse` (validation) returning the `ScreeningRunResult` union.
 2. Prompt-injection resistance:
-   - vacancy data goes in as `JSON.stringify` inside `<vacancy_data>` delimiters, so text cannot
-     break out; the instruction says the content is untrusted;
+   - the full user message is one JSON object. Fields are untrusted. Serialization does not prevent injection; the instruction forbids following embedded directions;
    - no tools that act on vacancy content (no fetching URLs, sending email, writing data);
      tools, if any, are read-only and side-effect free;
    - `includeContents: 'none'` for single-shot screening; bounded time via
@@ -57,10 +56,9 @@ outputKey, tools, generateContentConfig, includeContents })`. `outputSchema` acc
    provider errors (429, 5xx) propagate as exceptions for the router. A valid `skip` is never
    an error.
 4. Tests use a `BaseLlm` double (`ScriptedLlm` in `screening-agent.test.ts`): canned replies,
-   recorded `LlmRequest`s, `connect()` rejects. Assert on requests (delimiters present) and on
+   recorded `LlmRequest`s, `connect()` rejects. Assert that attempted instructions stay in data fields and on
    validated outcomes. No network, no real model, no API keys.
-5. Instruction changes are prompt changes: version them and run the offline evaluation
-   (`ai-evaluation`).
+5. Run deterministic model-double regressions. Full prompt evaluation and semantic grounding are planned in M3 (see `ai-evaluation`). A quote match verifies textual presence only.
 
 ## ADK devtools (not installed)
 

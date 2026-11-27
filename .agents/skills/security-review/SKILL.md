@@ -42,9 +42,9 @@ taken from vacancy text or user input without allowlisting; block private/link-l
 with a vetted sanitizer and strict allowlist before rendering; never `dangerouslySetInnerHTML`
 with unsanitized content; external links use `rel="noopener noreferrer"`.
 
-**Prompt injection** — vacancy data JSON-encoded inside delimiters; instruction marks it as
+**Prompt injection** — vacancy data is one JSON object; serialization is a structural boundary, not a model security guarantee. The instruction marks it as
 untrusted; no tools with side effects driven by model output; output re-validated with Zod;
-`skip` requires grounded evidence (`enforceGroundedSkip`); timeouts via `AbortSignal`.
+`enforceGroundedSkip` filters unsupported quotes and downgrades unsupported skips. Textual matches do not validate conclusions. Use `AbortSignal` for timeouts.
 
 **Dependencies** — new packages justified and used; `pnpm-lock.yaml` diff reviewed
 (unexpected packages, registries, version jumps); `allowBuilds` entries reviewed; run

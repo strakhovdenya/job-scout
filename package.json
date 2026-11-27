@@ -22,13 +22,16 @@
     "build:packages": "pnpm --filter \"./packages/*\" run build",
     "typecheck": "tsc -p tsconfig.json && pnpm --recursive run typecheck",
     "lint": "eslint --max-warnings=0 .",
+    "lint:architecture": "node scripts/architecture.ts",
+    "lint:issue": "node scripts/issue-contract.ts",
+    "lint:skills": "node scripts/skills.ts",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run --project unit",
     "test:watch": "vitest --project unit",
     "test:integration": "vitest run --project integration",
-    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run lint:architecture && pnpm run lint:skills && pnpm run typecheck && pnpm run test",
     "clean": "pnpm --recursive run clean"
   },
   "devDependencies": {

@@ -50,6 +50,8 @@ Adding a package `packages/<name>`:
 
 ## Design rules
 
+See [engineering standards](../../../docs/engineering-standards.md). Use the focused JavaScript metaskills for collection semantics, error recovery or genuine design variation. Keep package boundaries verifiable with `pnpm lint:architecture`.
+
 - Zod at every boundary (env, HTTP, source payloads, model output, fixtures); derive types with
   `z.infer`. Parse once at the edge, pass typed values inward.
 - Business rules live in `packages/core`, framework-free. Apps are thin adapters.
